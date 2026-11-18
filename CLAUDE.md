@@ -37,7 +37,7 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 |---|---|---|
 | `home.html` | 홈 | hero, 육각형 가치 카드, 퀵링크, CTA, 협력업체 |
 | `ceo_greeting.html` | 회사소개 > CEO 인사말 | 대표 서명 이미지 `images/ceo_signature.png` |
-| `org_chart.html` | 회사소개 > 조직도 | **이미지 한 장**(`images/org_chart.png`) — 수정하려면 이미지 교체 |
+| `org_chart.html` | 회사소개 > 조직도 | **HTML/CSS 트리**(`.org-node` / `.org-children` / `.org-child` / `.org-items`). 수정은 텍스트만 고치면 되고, 블록을 추가·삭제해도 연결선은 자동으로 그려진다. 1440px 폭에 맞춰 둔 상태라 항목을 늘리면 넘칠 수 있다(넘치면 가로 스크롤). 예전 `images/org_chart.png`는 미사용이지만 보관 중 |
 | `history.html` | 회사소개 > 연혁 | 연도별 `<dl class="history"><dt>연도</dt><dd><b>월.</b> 내용</dd></dl>` 수작업 HTML, 최신 연도가 위 |
 | `certification.html` | 회사소개 > 인허가현황 | `.img-bg` 카드의 inline `background-image`로 `images/certification/*.jpg`(한글 파일명) 표시, 페이지 내 스크립트로 클릭 시 라이트박스 모달 |
 | `project.html` | 사업영역 | 사업분야 카드, 경쟁력, 협력업체 공정 개선 사례(`.case-study-card`), 사업부별 장비 카드(`images/product/*`, 카드당 이미지 2장) |
