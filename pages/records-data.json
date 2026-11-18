@@ -3,6 +3,7 @@
     {
       "id": "nav_06",
       "name": "무림피앤피(주)",
+      "logo": "relate_09.jpg",
       "records": [
         {
           "no": 1,
@@ -379,6 +380,7 @@
     {
       "id": "nav_04",
       "name": "(주)삼양사 울산공장",
+      "logo": "relate_13.jpg",
       "records": [
         {
           "no": 1,
@@ -1050,6 +1052,7 @@
     {
       "id": "nav_03",
       "name": "롯데이네오스화학(주)",
+      "logo": "relate_08.jpg",
       "records": [
         {
           "no": 1,
@@ -1181,6 +1184,7 @@
     {
       "id": "nav_01",
       "name": "한화임팩트(주)",
+      "logo": "relate_22.jpg",
       "records": [
         {
           "no": 1,
@@ -1362,6 +1366,7 @@
     {
       "id": "nav_08",
       "name": "S-OIL(주)",
+      "logo": "relate_15.jpg",
       "records": [
         {
           "no": 1,
@@ -1388,6 +1393,7 @@
     {
       "id": "nav_02",
       "name": "한화케미칼(주)",
+      "logo": "relate_23.jpg",
       "records": [
         {
           "no": 1,
@@ -1495,6 +1501,7 @@
     {
       "id": "nav_12",
       "name": "귀뚜라미범양냉방(주)",
+      "logo": "relate_04.jpg",
       "records": [
         {
           "no": 1,
@@ -1582,6 +1589,7 @@
     {
       "id": "nav_10",
       "name": "현대미포조선(주)",
+      "logo": "relate_24.jpg",
       "records": [
         {
           "no": 1,
@@ -1623,6 +1631,7 @@
     {
       "id": "nav_09",
       "name": "태광산업(주)",
+      "logo": "relate_19.jpg",
       "records": [
         {
           "no": 1,
@@ -1929,6 +1938,242 @@
           "no": 58,
           "period": "1997.02",
           "content": "울산광역시 울주군청_항온항습기 납품,시운전"
+        }
+      ]
+    }
+  ],
+  "featured": [
+    {
+      "company": "nav_06",
+      "title": "SAU 노후 교체공사",
+      "photos": [
+        {
+          "src": "무림/SAU 노후 교체공사(덕트 설치 중).jpg",
+          "caption": "덕트 설치 중"
+        },
+        {
+          "src": "무림/SAU 노후 교체공사(덕트 설치 중2).jpg",
+          "caption": "덕트 설치 중2"
+        },
+        {
+          "src": "무림/SAU 노후 교체공사(덕트 설치 후).jpg",
+          "caption": "덕트 설치 후"
+        },
+        {
+          "src": "무림/SAU 노후 교체공사(외부 덕트 설치 후).jpg",
+          "caption": "외부 덕트 설치 후"
+        }
+      ]
+    },
+    {
+      "company": "nav_06",
+      "title": "와인더 공조기 설치",
+      "photos": [
+        {
+          "src": "무림/와인더 공조기 설치 (리와인더 공정 1층 바닥 공조기 및 실외기 반입).jpg",
+          "caption": "리와인더 공정 1층 바닥 공조기 및 실외기 반입"
+        },
+        {
+          "src": "무림/와인더 공조기 설치 (냉매배관 설치 및 보온 작업).jpg",
+          "caption": "냉매배관 설치 및 보온 작업"
+        },
+        {
+          "src": "무림/와인더 공조기 설치 (냉매배관 설치 및 보온테이프 마감 작업 후).jpg",
+          "caption": "냉매배관 설치 및 보온테이프 마감 작업 후"
+        }
+      ]
+    },
+    {
+      "company": "nav_06",
+      "title": "제지 초지 옥상 공조기 교체",
+      "photos": [
+        {
+          "src": "무림/제지 초지 옥상 공조기 교체 (교체 전).png",
+          "caption": "교체 전"
+        },
+        {
+          "src": "무림/제지 초지 옥상 공조기 교체 (교체 후).png",
+          "caption": "교체 후"
+        }
+      ]
+    },
+    {
+      "company": "nav_06",
+      "title": "초지 공정 냉동기 압축기 Overhaul",
+      "photos": [
+        {
+          "src": "무림/초지 공정 냉동기 (압축기 전).jpg",
+          "caption": "압축기 전"
+        },
+        {
+          "src": "무림/초지 공정 냉동기 (압축기 부품 분해).jpg",
+          "caption": "압축기 부품 분해"
+        },
+        {
+          "src": "무림/초지 공정 냉동기 (압축기 부품 세정).jpg",
+          "caption": "압축기 부품 세정"
+        },
+        {
+          "src": "무림/초지 공정 냉동기 (압축기 조립 준비).jpg",
+          "caption": "압축기 조립 준비"
+        },
+        {
+          "src": "무림/초지 공정 냉동기 (압축기 조립 중).jpg",
+          "caption": "압축기 조립 중"
+        },
+        {
+          "src": "무림/초지 공정 냉동기 (팽창밸브 교체 후).png",
+          "caption": "팽창밸브 교체 후"
+        }
+      ]
+    },
+    {
+      "company": "nav_03",
+      "title": "AHU-2101 (AA Analyzer house용 공조기) 교체",
+      "photos": [
+        {
+          "src": "롯데/공사명  AHU-2101 (AA Analyzer house용 공조기) 교체/AA analyzer HVAC 기계실 (기존 노후 장비 방폭 철거 전).jpg",
+          "caption": "기존 노후 장비 방폭 철거 전"
+        },
+        {
+          "src": "롯데/공사명  AHU-2101 (AA Analyzer house용 공조기) 교체/AA analyzer HVAC 기계실 (기존 노후 장비 방폭 철거 중).jpg",
+          "caption": "기존 노후 장비 방폭 철거 중"
+        },
+        {
+          "src": "롯데/공사명  AHU-2101 (AA Analyzer house용 공조기) 교체/AA analyzer HVAC 기계실 (신품 공조기 분해 반입(송풍기 Part)).jpg",
+          "caption": "신품 공조기 분해 반입(송풍기 Part)"
+        },
+        {
+          "src": "롯데/공사명  AHU-2101 (AA Analyzer house용 공조기) 교체/AA analyzer HVAC 기계실 (신품 공조기 분해 반입(코일 Part)).jpg",
+          "caption": "신품 공조기 분해 반입(코일 Part)"
+        },
+        {
+          "src": "롯데/공사명  AHU-2101 (AA Analyzer house용 공조기) 교체/AA analyzer HVAC 기계실 (Supply Chamber 및 Duct 설치 후).jpg",
+          "caption": "Supply Chamber 및 Duct 설치 후"
+        },
+        {
+          "src": "롯데/공사명  AHU-2101 (AA Analyzer house용 공조기) 교체/AA analyzer HVAC 기계실 (Steam 배관 Revision 작업 후).jpg",
+          "caption": "Steam 배관 Revision 작업 후"
+        },
+        {
+          "src": "롯데/공사명  AHU-2101 (AA Analyzer house용 공조기) 교체/AA analyzer HVAC 기계실 (응축수 Drain Line 설치 후).jpg",
+          "caption": "응축수 Drain Line 설치 후"
+        }
+      ]
+    },
+    {
+      "company": "nav_04",
+      "title": "전분포도당 포장실 공조기 교체",
+      "photos": [
+        {
+          "src": "삼양사/공정 전분포도당 포장실 공조기 교체/1. 공조기 교체 전.jpg",
+          "caption": "공조기 교체 전"
+        },
+        {
+          "src": "삼양사/공정 전분포도당 포장실 공조기 교체/2. 공조기 분해.jpg",
+          "caption": "공조기 분해"
+        },
+        {
+          "src": "삼양사/공정 전분포도당 포장실 공조기 교체/3. 공조기 조립.jpg",
+          "caption": "공조기 조립"
+        },
+        {
+          "src": "삼양사/공정 전분포도당 포장실 공조기 교체/4. 공조기 조립.jpg",
+          "caption": "공조기 조립"
+        },
+        {
+          "src": "삼양사/공정 전분포도당 포장실 공조기 교체/5. 공조기 덕트 연결.jpg",
+          "caption": "공조기 덕트 연결"
+        },
+        {
+          "src": "삼양사/공정 전분포도당 포장실 공조기 교체/6. 공조기 설치 후.jpg",
+          "caption": "공조기 설치 후"
+        }
+      ]
+    },
+    {
+      "company": "nav_04",
+      "title": "저장사이로 냉동기 3-1호 압축기 Overhaul",
+      "photos": [
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/1 압축기 취외 전.jpg",
+          "caption": "압축기 취외 전"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/2 압축기 OverHaul-압축기 모타 코일 상태 점검.jpg",
+          "caption": "압축기 모타 코일 상태 점검"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/3 압축기 OverHaul-압축기 모타 코일 분해.jpg",
+          "caption": "압축기 모타 코일 분해"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/4 압축기 취외 후.jpg",
+          "caption": "압축기 취외 후"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/5 압축기 OverHaul-압축기 분해.jpg",
+          "caption": "압축기 분해"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/6 압축기 OverHaul-압축기 분해.jpg",
+          "caption": "압축기 분해"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/7 압축기 OverHaul-압축기 분해.jpg",
+          "caption": "압축기 분해"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/7 압축기 OverHaul-암수로터 분해 및 상태 점검.jpg",
+          "caption": "암수로터 분해 및 상태 점검"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-언로드 상태 점검.jpg",
+          "caption": "언로드 상태 점검"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-오일 필터 및 흡입필터 교체품.jpg",
+          "caption": "오일 필터 및 흡입필터 교체품"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-오일필터 교체 조립 중.jpg",
+          "caption": "오일필터 교체 조립 중"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-모터 파트 베어링 조립 준비 중.jpg",
+          "caption": "모터 파트 베어링 조립 준비 중"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-모터 파트 베어링 조립 준비 중2.jpg",
+          "caption": "모터 파트 베어링 조립 준비 중2"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-모터 파트 암수로터 조립.jpg",
+          "caption": "모터 파트 암수로터 조립"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-암수로터 조립.jpg",
+          "caption": "암수로터 조립"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-압축파트 및 모터 파트 조립.jpg",
+          "caption": "압축파트 및 모터 파트 조립"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-모터 코일 조립 및 단자대 연결.jpg",
+          "caption": "모터 코일 조립 및 단자대 연결"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-모터 전원선 단자대 연결.jpg",
+          "caption": "모터 전원선 단자대 연결"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-소음판 조립.jpg",
+          "caption": "소음판 조립"
+        },
+        {
+          "src": "삼양사/공사명  저장사이로 냉동기 3-1호 압축기 OverHaul 작업/압축기 OverHaul-모타 카바 조립.jpg",
+          "caption": "모타 카바 조립"
         }
       ]
     }

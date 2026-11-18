@@ -100,9 +100,33 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 20px 24px;
+  min-height: 76px; /* 로고 유무와 관계없이 헤더 높이 통일 */
+  padding: 16px 24px;
   border-bottom: 1px solid var(--line);
 }
+
+/* 회사 로고 (records-data.json의 logo). JPG 흰 배경이라 흰 칩 안에 표시 */
+.company-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.company-logo img {
+  height: 100%;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+/* 로고가 있으면 이름 앞 초록 막대는 생략 */
+.company-logo + h4 { padding-left: 0; }
+.company-logo + h4::before { display: none; }
 
 .company-header h4 {
   position: relative;
@@ -196,7 +220,9 @@
 
   .records-display { gap: 14px; }
 
-  .company-header { padding: 16px 18px; }
+  .company-header { padding: 12px 16px; min-height: 64px; gap: 10px; }
+  .company-logo { height: 34px; padding: 4px 8px; }
+  .company-logo img { max-width: 88px; }
   .company-header h4 { font-size: 16px; }
 
   .company-table table { min-width: 0; font-size: 13px; }
@@ -206,4 +232,194 @@
   .company-table td:first-child { width: 44px; }
   .company-table th:nth-child(2),
   .company-table td:nth-child(2) { width: 96px; white-space: normal; }
+}
+
+/* ========================================================
+ * 📷 현장 사진 (records_photo.html) — records.js renderFeatured()
+ *   .photo-group: 공사 1건 (기업 칩 + 공사명 + 장수) + .photo-grid
+ *   .photo-lightbox: 크게 보기 (공사 단위로 넘겨보기)
+ * ======================================================== */
+.featured-section {
+  padding: 72px 0 96px;
+  background: var(--bg);
+}
+
+.featured-section[hidden] { display: none; }
+
+.featured-photo-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.photo-group {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.photo-group-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin-bottom: 18px;
+}
+
+.featured-company {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.featured-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.featured-period {
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.photo-group-count {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.photo-card {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.photo-card:hover {
+  border-color: rgba(42, 157, 93, 0.35);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.photo-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--bg);
+}
+
+.photo-card figcaption {
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+
+/* ----- 라이트박스 ----- */
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  background: rgba(15, 17, 21, 0.92);
+}
+
+.photo-lightbox[hidden] { display: none; }
+
+.lb-figure {
+  margin: 0;
+  max-width: min(1100px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lb-figure img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.lb-figure figcaption {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+  color: #fff;
+}
+
+.lb-title { font-size: 13px; color: rgba(255, 255, 255, 0.6); }
+.lb-caption { font-size: 16px; font-weight: 600; }
+.lb-count { font-size: 13px; color: rgba(255, 255, 255, 0.6); font-variant-numeric: tabular-nums; }
+
+.lb-close,
+.lb-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lb-close:hover,
+.lb-nav:hover { background: rgba(255, 255, 255, 0.2); }
+
+.lb-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+}
+
+.lb-nav {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .featured-section { padding: 40px 0 64px; }
+  .featured-photo-groups { gap: 14px; }
+  .photo-group { padding: 16px; }
+  .featured-title { font-size: 16px; }
+  .photo-group-count { margin-left: 0; width: 100%; }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .photo-card figcaption { padding: 8px 10px; font-size: 12px; }
+
+  .photo-lightbox { padding: 64px 8px 24px; gap: 4px; }
+  .lb-nav { position: absolute; bottom: 24px; width: 44px; height: 44px; }
+  .lb-nav.prev { left: calc(50% - 56px); }
+  .lb-nav.next { right: calc(50% - 56px); }
+  .lb-figure img { max-height: 64vh; }
+  .lb-figure figcaption { margin-bottom: 72px; }
 }
