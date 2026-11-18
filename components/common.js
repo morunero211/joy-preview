@@ -13,7 +13,7 @@ var NAV = `
 <nav class="navbar" role="navigation">
   <div class="navbar-container">
     <a class="navbar-brand" href="/">
-      <div class="brand-logo"><img src="../images/joy-log.png" alt="조이산업 로고" /></div>
+      <div class="brand-logo"><img src="../images/joy-log-color.png" alt="조이산업 로고" /></div>
       <span>조이산업</span>
     </a>
     <button class="navbar-toggler" type="button" onclick="toggleNavbar()" aria-label="Menu">

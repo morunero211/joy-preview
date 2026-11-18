@@ -616,6 +616,27 @@ table tbody tr:nth-child(even) {
   height: auto; 
 }
 
+/* ===== Fade-up Animation (common.js initScrollAnimation) ===== */
+@keyframes fadeUpAnimation {
+  from {
+    opacity: 0.3;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial State (hidden by default) */
+.fade-up {
+  opacity: 0.3;
+  transform: translateY(20px);
+}
+.fade-up.animate {
+  animation: fadeUpAnimation 0.8s ease-out forwards;
+}
+
 /* ===== 반응형 디자인 ===== */
 @media (max-width: 1200px) {
   .navbar-toggler { 
