@@ -28,9 +28,10 @@ index.html              → pages/home.html 로 meta refresh 리다이렉트
 components/common.js    → 모든 페이지에 GNB·푸터·협력업체 섹션 주입 + 스크롤 애니메이션
 components/common.css   → 전역 스타일(리셋, GNB, 푸터, page-hero, 협력업체, 공통 테이블, 반응형)
 pages/<name>.html/.css  → 페이지별 HTML + 같은 이름의 CSS 1:1
-pages/records.js        → 실적현황 렌더링 로직
+pages/records.js        → 실적현황 렌더링 로직 (records.html·records_photo.html 공용)
 pages/records-data.json → 실적현황 데이터
-images/                 → 로고, 조직도, 대표 서명, certification/, company_logo/, product/
+images/                 → 로고, 조직도, 대표 서명, certification/, company_logo/, product/,
+                          records/(현장 사진: 기업 폴더/공사 폴더/한글 파일명)
 ```
 
 | 페이지 | 메뉴 | 비고 |
@@ -41,7 +42,8 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 | `history.html` | 회사소개 > 연혁 | 연도별 `<dl class="history"><dt>연도</dt><dd><b>월.</b> 내용</dd></dl>` 수작업 HTML, 최신 연도가 위 |
 | `certification.html` | 회사소개 > 인허가현황 | `.img-bg` 카드의 inline `background-image`로 `images/certification/*.jpg`(한글 파일명) 표시, 페이지 내 스크립트로 클릭 시 라이트박스 모달 |
 | `project.html` | 사업영역 | 사업분야 카드, 경쟁력, 협력업체 공정 개선 사례(`.case-study-card`), 사업부별 장비 카드(`images/product/*`, 카드당 이미지 2장) |
-| `records.html` | 실적현황 | JSON 기반 동적 렌더링 (아래 참고) |
+| `records.html` | 실적현황 > 기업별 실적 | JSON `companies` 기반 기업 선택 + 표 (아래 참고) |
+| `records_photo.html` | 실적현황 > 현장 사진 | JSON `featured` 기반 공사별 사진 카드 그리드 + 라이트박스 |
 | `board.html` | 고객문의 | 게시판 아님. 전화/팩스/이메일 정보 카드뿐 |
 | `contact.html` | 오시는 길 | 주소/연락처 + 카카오맵 퍼가기(roughmap) 스크립트 |
 
@@ -49,7 +51,7 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 
 각 페이지는 `<body>` 끝에서 `<script src="../components/common.js">`를 로드하고, 이 스크립트가 런타임에 DOM을 주입한다. **GNB·푸터·협력업체 섹션은 HTML 파일에 직접 쓰지 말고 common.js만 수정**한다.
 
-- `NAV` — GNB 템플릿 문자열. 메뉴 추가/변경은 여기서. 링크는 `/pages/xxx.html` 절대경로, 로고는 `../images/joy-log-color.png`(파비콘과 동일, 32×32). `joy-log.png`는 현재 미사용이지만 보관 중.
+- `NAV` — GNB 템플릿 문자열. 드롭다운은 회사소개(4개)와 실적현황(기업별 실적 / 현장 사진) 두 곳이다. 메뉴 추가/변경은 여기서. 링크는 `/pages/xxx.html` 절대경로, 로고는 `../images/joy-log-color.png`(파비콘과 동일, 32×32). `joy-log.png`는 현재 미사용이지만 보관 중.
 - `FOOTER` — 회사명·대표(박종남)·주소·전화/팩스.
 - `PARTNER_LOGOS` — "주요 협력업체 및 거래처" 로고 파일 목록(`images/company_logo/`). **배열 순서 = 화면 표시 순서**. 페이지에 `<div id="partners"></div>`가 있으면 그 자리에 섹션이 삽입된다(현재 home, records).
 - `setActiveMenu()` — `location.pathname.endsWith(href)`로 현재 메뉴에 `.active`, 드롭다운 항목이면 상위 "회사소개"도 활성화.
@@ -74,6 +76,22 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 - `logo`(선택): `images/company_logo/` 파일명. 있으면 기업 헤더의 회사명 왼쪽에 흰 칩으로 표시되고, 없으면 이름만 표시된다. 현재 삼양제넥스·울산화력·기타는 로고가 없다. 협력업체 섹션(`PARTNER_LOGOS`)에 없는 `relate_19`(태광)와 `relate_23`(한화케미칼)도 실적현황용으로 쓰이므로 지우지 말 것.
 - 현재 12개 기업: 무림피앤피, 삼양사 울산공장, 롯데이네오스화학, 한화임팩트, S-OIL, 한화케미칼, 삼양제넥스, 귀뚜라미범양냉방, 울산화력, 현대미포조선, 태광산업, 기타.
 - 대량 수정 시 python으로 JSON을 읽고 쓰는 편이 안전하다(`ensure_ascii=False, indent=2` 유지).
+
+### 현장 사진 (`featured`)
+
+```json
+"featured": [
+  { "company": "nav_03", "title": "AHU-2101 (AA Analyzer house용 공조기) 교체",
+    "photos": [ { "src": "롯데/공사명  AHU-2101 (…) 교체/AA analyzer HVAC 기계실 (기존 노후 장비 방폭 철거 전).jpg",
+                  "caption": "기존 노후 장비 방폭 철거 전" } ] }
+]
+```
+
+- `src`는 `images/records/` 기준 경로. 한글·공백·괄호 파일명이므로 JS에서 경로 조각마다 `encodeURIComponent` 처리한다(`photoUrl()`). 폴더명에 공백 2칸(`공사명  `)이 있으니 그대로 복사해서 쓸 것.
+- `caption`은 파일명 괄호 안 문구 기준. 파일명 오타를 고치면 `src`·`caption`을 둘 다 고친다.
+- `period`(선택)는 지원하지만, **확인된 공사 기간이 없어서 현재는 넣지 않는다**(사용자 지시). 실적 표와 임의로 연결하지 말 것.
+- 사진은 웹용으로 긴 변 1600px 안팎을 유지한다. 폰 원본(4000px·2~3MB)은 줄여서 넣는다. 이 환경에는 Pillow가 없어 headless Chromium canvas로 줄였다(EXIF 회전 반영됨).
+- 무림 냉동기·삼양 3-1호 사진은 원본 자체가 220px 저해상도다(사용자 확인, 그대로 유지).
 
 ## 페이지 작성 관례
 

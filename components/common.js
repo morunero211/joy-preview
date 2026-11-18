@@ -37,7 +37,14 @@ var NAV = `
           <a class="nav-link" href="/pages/project.html">사업영역</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pages/records.html">실적현황</a>
+          <a class="nav-link" href="javascript:void(0);" onclick="toggleDropdown(this)">
+            실적현황
+            <i class="fas fa-chevron-down caret"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/pages/records.html">기업별 실적</a>
+            <a class="dropdown-item" href="/pages/records_photo.html">현장 사진</a>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/pages/board.html">고객문의</a>
