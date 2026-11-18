@@ -102,6 +102,28 @@
   background: linear-gradient(90deg, #2A9D5D 0, #1B7C48 100%);
   padding: 16px 24px;
   color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px; /* 로고 유무와 관계없이 헤더 높이 통일 */
+}
+
+/* 회사 로고 (JPG 흰 배경이라 흰 칩 안에 표시) */
+.company-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 5px 10px;
+  background: #fff;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.company-logo img {
+  height: 100%;
+  max-width: 120px;
+  object-fit: contain;
 }
 
 .company-header h4 {
@@ -193,8 +215,10 @@
   .company-table { padding: 8px; font-size: 0.7rem; }
   .company-table table thead th,
   .company-table table tbody td { padding: 6px; }
-  .company-header { padding: 12px 16px; }
+  .company-header { padding: 12px 16px; gap: 10px; min-height: 56px; }
   .company-header h4 { font-size: 0.9rem; }
+  .company-logo { height: 32px; padding: 4px 8px; }
+  .company-logo img { max-width: 90px; }
   .records-display { gap: 20px; }
 }
 

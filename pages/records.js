@@ -85,8 +85,14 @@ function renderRecords(selectedId) {
     const section = document.createElement('div');
     section.className = 'company-section';
     
+    // 로고는 records-data.json의 logo 필드(images/company_logo/ 파일명)가 있는 기업만 표시
+    const logoHTML = company.logo
+      ? `<span class="company-logo"><img src="../images/company_logo/${company.logo}" alt="${company.name} 로고"></span>`
+      : '';
+
     let tableHTML = `
       <div class="company-header">
+        ${logoHTML}
         <h4>${company.name}</h4>
       </div>
       <div class="company-table">
