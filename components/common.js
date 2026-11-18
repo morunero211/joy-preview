@@ -8,7 +8,7 @@
  * 레이아웃: 표준 GNB + 본문 + Footer
  * ======================================================== */
 
-// ===== 드롭다운 메뉴 HTML (회사소개) =====
+// ===== Navbar(GNB) HTML =====
 var NAV = `
 <nav class="navbar" role="navigation">
   <div class="navbar-container">
@@ -46,6 +46,9 @@ var NAV = `
           <a class="nav-link" href="/pages/contact.html">오시는 길</a>
         </li>
       </ul>
+      <a class="btn btn-primary nav-cta" href="tel:052-249-9199">
+        <i class="fas fa-phone"></i> 052-249-9199
+      </a>
     </div>
   </div>
 </nav>
@@ -53,29 +56,52 @@ var NAV = `
 
 // ===== Footer HTML =====
 var FOOTER = `
-<div class="agency-footer">
-  <a href="javascript:void(0)" onclick="scrollToTop()" class="go-top">
-    <i class="fas fa-arrow-up"></i>
-    <span style="font-size:10px;">TOP</span>
-  </a>
+<footer class="site-footer">
   <div class="container">
-    <div class="footer-row">
-      <div class="footer-col">
-        <h4>회사명</h4>
-        <p>조이산업 | 대표: 박종남</p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="navbar-brand" href="/">
+          <div class="brand-logo"><img src="../images/joy-log-color.png" alt="조이산업 로고" /></div>
+          <span>조이산업</span>
+        </a>
+        <p>35년 이상의 공조 설비 전문 기업.<br>설계부터 제작, 시공까지 One-Stop 서비스를 제공합니다.</p>
       </div>
-      <div class="footer-col">
-        <h4>주소</h4>
-        <p>울산광역시 울주군 청량읍 화창1길 42-18</p>
+      <div>
+        <h4>회사소개</h4>
+        <ul class="footer-links">
+          <li><a href="/pages/ceo_greeting.html">CEO 인사말</a></li>
+          <li><a href="/pages/org_chart.html">조직도</a></li>
+          <li><a href="/pages/history.html">연혁</a></li>
+          <li><a href="/pages/certification.html">인허가현황</a></li>
+        </ul>
       </div>
-      <div class="footer-col">
-        <h4>연락처</h4>
-        <p>Tel: 052-249-9199</p>
-        <p>Fax: 052-249-9250</p>
+      <div>
+        <h4>사업 · 문의</h4>
+        <ul class="footer-links">
+          <li><a href="/pages/project.html">사업영역</a></li>
+          <li><a href="/pages/records.html">실적현황</a></li>
+          <li><a href="/pages/board.html">고객문의</a></li>
+          <li><a href="/pages/contact.html">오시는 길</a></li>
+        </ul>
+      </div>
+      <div class="footer-info">
+        <h4>회사 정보</h4>
+        <p><i class="fas fa-building"></i><span>조이산업 | 대표: 박종남</span></p>
+        <p><i class="fas fa-map-marker-alt"></i><span>울산광역시 울주군 청량읍 화창1길 42-18</span></p>
+        <p><i class="fas fa-phone"></i><span>Tel: 052-249-9199</span></p>
+        <p><i class="fas fa-fax"></i><span>Fax: 052-249-9250</span></p>
       </div>
     </div>
+    <div class="footer-bottom">
+      <span>© (주)조이산업. All rights reserved.</span>
+      <span>공조 · 냉동 · 양압 · 집진 · 덕트 설비</span>
+    </div>
   </div>
-</div>
+</footer>
+<a href="javascript:void(0)" onclick="scrollToTop()" class="go-top" aria-label="맨 위로">
+  <i class="fas fa-arrow-up"></i>
+  <span>TOP</span>
+</a>
 `;
 
 // ===== 주요 협력업체 및 거래처 =====
@@ -89,7 +115,8 @@ var PARTNER_LOGOS = [
 var PARTNERS = `
 <section class="partners-section">
   <div class="container">
-    <div class="section-heading">
+    <div class="section-heading center">
+      <p class="eyebrow">Partners</p>
       <h2>주요 협력업체 및 거래처</h2>
       <p>국내 주요 대기업 및 공공기관과 함께하고 있습니다.</p>
     </div>
@@ -109,10 +136,12 @@ function inject() {
   navWrapper.innerHTML = NAV;
   document.body.insertBefore(navWrapper.children[0], document.body.firstChild);
 
-  // 2. Footer 삽입 (body 맨 뒤)
+  // 2. Footer + 맨 위로 버튼 삽입 (body 맨 뒤)
   var footerWrapper = document.createElement('div');
   footerWrapper.innerHTML = FOOTER;
-  document.body.appendChild(footerWrapper.children[0]);
+  while (footerWrapper.firstElementChild) {
+    document.body.appendChild(footerWrapper.firstElementChild);
+  }
 
   // 3. 협력업체 섹션 삽입 (<div id="partners"></div>가 있는 페이지만)
   var partnersSlot = document.getElementById('partners');
@@ -122,6 +151,19 @@ function inject() {
 
   // 4. 메뉴 액티브 상태 설정
   setActiveMenu();
+
+  // 5. 스크롤 상태 (GNB 그림자, 맨 위로 버튼)
+  window.addEventListener('scroll', updateScrollState, { passive: true });
+  updateScrollState();
+}
+
+// ===== 스크롤 상태 반영 =====
+function updateScrollState() {
+  var y = window.scrollY || window.pageYOffset;
+  var navbar = document.querySelector('.navbar');
+  var goTop = document.querySelector('.go-top');
+  if (navbar) navbar.classList.toggle('scrolled', y > 8);
+  if (goTop) goTop.classList.toggle('show', y > 480);
 }
 
 // ===== 네비게이션 토글 (모바일) =====

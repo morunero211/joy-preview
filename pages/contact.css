@@ -1,56 +1,90 @@
 /**
  * ========================================================
- * 📍 contact.css - 오시는길(Contact) 페이지 스타일
+ * 📍 contact.css - 오시는길 페이지 스타일
  * ========================================================
- * 역할:
- *   - 연락처 정보: 주소/전화/이메일 표시
- *   - 지도 임베드: Daum Map API 컨테이너
- *   - 열린 시간: 영업시간 정보
- *   - 아이콘 강조: Font Awesome 아이콘으로 항목 구분
- * 내용:
- *   - .blog-cols-wrapper: 메인 컨테이너 (상하 패딩)
- *   - .widget-contact: 연락처 위젯 (반복 요소)
- *   - .widget-contact h4: 제목 (포인트 컬러)
- *   - .widget-contact p: 연락처 텍스트
- *   - .widget-contact .fa: 아이콘 색상
- *   - #daumRoughmapContainer1637583336400: 지도 컨테이너
- *   - 반응형: 모바일에서 위젯 간격 조정
+ * 구성: 초록 라벨 타일(.contact-tile) + 연락처 카드(.widget-contact) + 카카오맵
+ *       (.row를 3열 그리드로 배치, 모바일은 1열)
  * 사용 대상: pages/contact.html
  * ======================================================== */
 
+.blog-cols-wrapper {
+  padding: 80px 0 96px;
+  background: var(--bg);
+}
 
+.blog-cols-wrapper .row {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 360px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
 
+.contact-tile i { font-size: 20px; opacity: 0.9; }
 
+.widget-contact {
+  padding: 30px 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
 
-.blog-cols-wrapper { padding: 50px 0 60px; }
 .widget-contact h4 {
-  color: var(--color-point1); font-size: 1.3rem;
-  font-weight: 700; margin-bottom: 16px;
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
-.widget-contact p { 
-  font-size: 0.95rem; 
-  line-height: 1.9; 
-  color: #444; 
-  margin-bottom: 24px;}
 
-.widget-contact .fa { color: var(--color-point1); }
+.widget-contact > br { display: none; }
+
+#detail_descript_to_visit:empty { display: none; }
+
+.widget-contact p {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.8 !important;
+}
+
+.widget-contact p + p {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  line-height: 2.1 !important;
+}
+
+.widget-contact .fa {
+  color: var(--accent);
+  margin-right: 8px;
+}
+
 #daumRoughmapContainer1637583336400 {
-  width: 100%; height: 320px;
-  border-radius: 6px; overflow: hidden;
-  border: 1px solid #dee2e6;
-}
-@media (max-width: 768px) { 
-  .blog-cols-wrapper { padding: 30px 0 40px; }
-  .widget-contact { margin-bottom: 30px; }
-  .widget-contact h4 { font-size: 1.1rem; margin-bottom: 12px; }
-  .widget-contact p { font-size: 0.9rem; margin-bottom: 18px; }
-  #daumRoughmapContainer1637583336400 { height: 280px; }
+  width: 100% !important;
+  min-height: 360px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
 }
 
-@media (max-width: 480px) {
-  .blog-cols-wrapper { padding: 20px 0 30px; }
-  .widget-contact { margin-bottom: 25px; }
-  .widget-contact h4 { font-size: 0.95rem; margin-bottom: 10px; }
-  .widget-contact p { font-size: 0.8rem; line-height: 1.8; margin-bottom: 12px; }
-  #daumRoughmapContainer1637583336400 { height: 250px; }
+@media (max-width: 1024px) {
+  .blog-cols-wrapper .row { grid-template-columns: 160px minmax(0, 1fr); }
+  #daumRoughmapContainer1637583336400 { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+  .blog-cols-wrapper { padding: 40px 0 64px; }
+
+  .blog-cols-wrapper .row { grid-template-columns: 1fr; gap: 12px; }
+
+  .contact-tile {
+    aspect-ratio: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    justify-content: flex-start;
+  }
+
+  .widget-contact { padding: 22px; }
+
+  #daumRoughmapContainer1637583336400 { min-height: 300px; }
 }

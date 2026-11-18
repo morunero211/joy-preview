@@ -13,6 +13,9 @@
 
 ## 로컬 확인
 
+스크린샷 확인: `~/.cache/ms-playwright/chromium-1140/chrome-linux/chrome --headless=new --no-sandbox --run-all-compositor-stages-before-draw --virtual-time-budget=10000 --window-size=1440,3000 --screenshot=out.png http://localhost:8000/pages/home.html`. headless는 최소 너비가 약 500px라서 모바일(390px)은 iframe으로 감싸서 캡처한다. 이 WSL에는 한글 시스템 폰트가 없어 일부 글자가 □로 찍힐 수 있다(실제 브라우저에서는 정상).
+
+
 빌드 단계 없음. 단, `records.html`은 `fetch('./records-data.json')`을 쓰므로 `file://`로 열면 데이터가 안 뜬다. 또 GNB 링크가 `/pages/...` 절대경로라 **저장소 루트를 서버 루트로** 띄워야 한다.
 
 ```bash
@@ -49,12 +52,14 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 
 각 페이지는 `<body>` 끝에서 `<script src="../components/common.js">`를 로드하고, 이 스크립트가 런타임에 DOM을 주입한다. **GNB·푸터·협력업체 섹션은 HTML 파일에 직접 쓰지 말고 common.js만 수정**한다.
 
-- `NAV` — GNB 템플릿 문자열. 메뉴 추가/변경은 여기서. 링크는 `/pages/xxx.html` 절대경로, 로고는 `../images/joy-log-color.png`(파비콘과 동일, 32×32). `joy-log.png`는 현재 미사용이지만 보관 중.
-- `FOOTER` — 회사명·대표(박종남)·주소·전화/팩스.
+- `NAV` — GNB 템플릿 문자열. 메뉴 추가/변경은 여기서. 링크는 `/pages/xxx.html` 절대경로, 로고는 `../images/joy-log-color.png`(파비콘과 동일, 32×32). `joy-log.png`는 현재 미사용이지만 보관 중. 우측에 전화 CTA 버튼(`.nav-cta`, `tel:` 링크).
+- `FOOTER` — `<footer class="site-footer">` 4열(브랜드 소개 / 회사소개 링크 / 사업·문의 링크 / 회사 정보: 대표·주소·전화·팩스) + 하단 카피라이트, 그리고 고정 `.go-top` 버튼.
+- `updateScrollState()` — 스크롤 시 `.navbar.scrolled`(테두리·그림자), 480px 이상 내려가면 `.go-top.show`.
 - `PARTNER_LOGOS` — "주요 협력업체 및 거래처" 로고 파일 목록(`images/company_logo/`). **배열 순서 = 화면 표시 순서**. 페이지에 `<div id="partners"></div>`가 있으면 그 자리에 섹션이 삽입된다(현재 home, records).
 - `setActiveMenu()` — `location.pathname.endsWith(href)`로 현재 메뉴에 `.active`, 드롭다운 항목이면 상위 "회사소개"도 활성화.
 - 모바일: `toggleNavbar()`(`.navbar-collapse.open`), `toggleDropdown()`(`.nav-item.open`). 햄버거 메뉴 전환 브레이크포인트는 **1200px** (`common.css` 하단 "반응형 디자인").
-- `initScrollAnimation()` — IntersectionObserver로 `.fade-up` 요소에 `.animate` 추가. `.fade-up`/`.animate` 스타일과 `@keyframes fadeUpAnimation`은 `common.css`에 있어 어느 페이지에서든 클래스만 붙이면 동작한다.
+- `initScrollAnimation()` — IntersectionObserver로 `.fade-up` 요소에 `.animate` 추가. `.fade-up`(opacity 0 → 1 transition) 스타일은 `common.css`에 있어 어느 페이지에서든 클래스만 붙이면 동작한다.
+- ⚠️ 템플릿 문자열(`` ` ``)을 수정한 뒤에는 `node --check components/common.js`로 문법을 확인할 것. 깨지면 GNB·푸터가 통째로 사라진다.
 
 회사 연락처(주소·전화·팩스·이메일 `joy052@hanmail.net`)는 common.js 푸터, `board.html`, `contact.html` 세 곳에 중복돼 있으니 변경 시 모두 수정.
 
@@ -74,9 +79,32 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 - 현재 12개 기업: 무림피앤피, 삼양사 울산공장, 롯데이네오스화학, 한화임팩트, S-OIL, 한화케미칼, 삼양제넥스, 귀뚜라미범양냉방, 울산화력, 현대미포조선, 태광산업, 기타.
 - 대량 수정 시 python으로 JSON을 읽고 쓰는 편이 안전하다(`ensure_ascii=False, indent=2` 유지).
 
+## 디자인 시스템 (`components/common.css`)
+
+레퍼런스: 밝은 회색 배경 + 흰 카드 + 얇은 테두리의 미니멀 SaaS/기업 사이트 스타일, 단색 라벨 타일·원형 아이콘 알약 버튼 포인트. **컬러는 무채색 + 로고 초록 1색**만 쓴다. 새 색을 하드코딩하지 말고 토큰을 쓴다.
+
+| 토큰 | 값 | 용도 |
+|---|---|---|
+| `--ink` | `#0F1115` | 제목, 다크 CTA 패널 |
+| `--ink-2` | `#242933` | 강조 본문 |
+| `--text` / `--muted` | `#4A5160` / `#8A909C` | 본문 / 보조 |
+| `--line` | `#E5E8EC` | 테두리·구분선 |
+| `--bg` / `--surface` | `#F7F8FA` / `#FFF` | 섹션 배경 / 카드 |
+| `--accent` | `#2A9D5D` | 포인트(버튼, 타일, 점) |
+| `--accent-strong` | `#1F7F4A` | 흰 배경 위 작은 초록 텍스트 |
+| `--accent-soft` | `#EAF6EF` | 아이콘 배경 |
+
+기존 변수명(`--color-point1`, `--color-cyan`, `--color-dark`)은 위 토큰의 별칭으로 남아 있다. 반경 `--radius-lg/--radius/--radius-sm`(20/16/10), 그림자 `--shadow-sm/--shadow-md`, 폰트 Pretendard(`@import`, jsDelivr) → Noto Sans KR 폴백.
+
+공통 UI 클래스: `.eyebrow`(작은 영문 대문자 라벨), `.section-heading`(+`.center`), `.btn .btn-primary/.btn-outline`, `.btn-pill`+`.pill-icon`(원형 아이콘 알약 버튼), `.label-tile`(초록 정사각 라벨 타일), `.icon-tile`(옅은 초록 아이콘 박스).
+
+- 홈 히어로의 마름모(`.hero-diamond > .hero-photo`)는 현재 CSS 그래픽이다. 원래 쓰던 cloudfront 히어로 사진 URL은 **403으로 만료**됐다. 사진을 넣으려면 `images/`에 파일을 추가하고 `home.css`의 `.hero-photo` background에 `url()`을 추가한다.
+- 홈 숫자 스트립(35년+, 1991, 2013, 6분야)은 연혁·인사말에 있는 사실에서 가져온 값이다. 원문이 바뀌면 함께 수정한다.
+- 사업분야(`#project-showcase .container`)는 `h3`(사업부 라벨 타일)와 바로 뒤 `.equipment-cards`가 2열 그리드로 자동으로 짝지어진다. 사업부를 추가할 때는 이 순서(h3 → .equipment-cards)를 유지한다.
+
 ## 페이지 작성 관례
 
-- `<head>` 공통: Font Awesome 5.6.3 CDN(`fas fa-*` 아이콘), Google Fonts Noto Sans KR(home·board는 Noto Serif KR 추가), 파비콘 `../images/joy-log-color.png`, `../components/common.css` → 페이지 CSS 순.
+- `<head>` 공통: Font Awesome 5.6.3 CDN(`fas fa-*` 아이콘 — 5.6.3에 없는 아이콘은 표시되지 않으니 주의. 예: `fa-phone-alt` ✗ → `fa-phone`), Google Fonts Noto Sans KR, 파비콘 `../images/joy-log-color.png`, `../components/common.css` → 페이지 CSS 순.
 - 서브페이지 상단 배너는 공통 `.page-hero` 패턴:
   ```html
   <div class="page-hero">
@@ -84,7 +112,8 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
     <div class="page-hero-content"><h1>실적현황</h1></div>
   </div>
   ```
-- 레이아웃 래퍼 `.container`(max 1140px). 색상 변수는 `common.css`의 `:root` (`--color-point1 #2A9D5D`, `--color-cyan`, `--color-dark #0F4D33`).
+- `.page-hero-bg-text`는 영문 eyebrow 라벨로, `h1`은 큰 제목으로 표시된다. GNB가 fixed라서 히어로가 상단 여백(`--navbar-height`)을 갖고 있으니, 히어로 없이 시작하는 페이지를 만들 때는 상단 여백을 직접 준다.
+- 레이아웃 래퍼 `.container`(max 1180px, `--container`).
 - 반응형 브레이크포인트: 1200 / 1024 / 768 / 480px.
 - 페이지 내부 링크(home의 버튼 등)는 상대경로(`records.html`), GNB는 절대경로 — 둘 다 정상.
 

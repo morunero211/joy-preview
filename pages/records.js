@@ -88,6 +88,7 @@ function renderRecords(selectedId) {
     let tableHTML = `
       <div class="company-header">
         <h4>${company.name}</h4>
+        <span class="company-count">${company.records.length}건</span>
       </div>
       <div class="company-table">
         <table>

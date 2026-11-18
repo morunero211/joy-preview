@@ -1,108 +1,140 @@
 /**
  * ========================================================
- * 🏆 certification.css - 인증/자격증 페이지 스타일
+ * 🏆 certification.css - 인허가현황 페이지 스타일
  * ========================================================
- * 역할:
- *   - 인증서 갤러리: 보증 이미지 표시
- *   - 이미지 배경: 배경 이미지로 인증서 표시
- *   - 공지사항: 이미지 로드 안내 메시지
- *   - 모바일 최적화: 화면 크기별 레이아웃
- * 내용:
- *   - .img-notice: 황색 공지문 박스 (이미지 안내)
- *   - .img-notice i: 경고 아이콘
- *   - .certification-each-item: 개별 인증서 컨테이너
- *   - .certification-each-item .img-bg: 배경 이미지 스타일
- *   - 반응형: 576px 이하에서 패딩 감소
+ * 구성:
+ *   - .index-video-title: 소개 문구 카드
+ *   - .row > .certification-each-item: 인증서 카드 그리드
+ *       .img-bg(inline background-image로 인증서 표시) + 하단 캡션(p, span)
+ *   - #imageModal: 클릭 시 라이트박스 (페이지 내 스크립트)
  * 사용 대상: pages/certification.html
  * ======================================================== */
 
+.certification-page {
+  padding-top: 72px;
+  padding-bottom: 96px;
+}
 
+.img-notice:empty { display: none; }
 
-
-
-
-/* ===== Grid System (Bootstrap 대체) ===== */
+/* ===== Grid ===== */
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
 }
 
-.col-md-4 {
-  flex: 0 0 calc(33.333% - 20px);
-  max-width: calc(33.333% - 20px);
-  margin: 0 10px;
-}
+.row + .row { margin-top: 0; }
 
-.col-12 {
-  flex: 0 0 100%;
-  max-width: 100%;
-}
+.col-12 { grid-column: 1 / -1; }
 
+/* 소개 문구 */
+.index-video-title {
+  margin-bottom: 36px;
+  padding: 28px 32px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
 
 .index-video-title p {
-  margin-bottom: 20px;
-  font-size: 1.0rem; line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink-2);
 }
-.img-notice {
-  background: #ffffff;
-  border-left: 4px solid #fff;
-  padding: 10px 16px;
-  margin: 20px 0 10px;
-  font-size: 0.85rem;
-  border-radius: 0 4px 4px 0;
-  color: #856404;
+
+/* ===== 인증서 카드 ===== */
+.certification-each-item .img-bg {
+  position: relative;
+  display: block;
+  height: 440px;
+  padding: 24px 24px 92px;
+  background-color: var(--bg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-origin: content-box;
+  background-clip: border-box;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
-.img-notice i { margin-right: 6px; }
-.certification-each-item { 
-  padding-bottom: 2em;
+
+.certification-each-item .img-bg:hover {
+  border-color: rgba(42, 157, 93, 0.35);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
 }
+
+/* 캡션 */
+.certification-each-item .img-bg p {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 72px;
+  padding: 16px 56px 16px 20px;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.certification-each-item .img-bg p span {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* 확대 아이콘 */
+.certification-each-item .img-bg p::after {
+  content: '\f00e';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.certification-each-item .img-bg:hover p::after {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 @media (max-width: 768px) {
-  .col-md-4 {
-    flex: 0 0 calc(50% - 20px);
-    max-width: calc(50% - 20px);
-  }
-  .certification-each-item .img-bg { height: 300px; }
-  .certification-each-item { padding-bottom: 1.5em; }
-  .cert-grid { padding: 20px 0 30px; }
+  .certification-page { padding-top: 40px; padding-bottom: 64px; }
+  .index-video-title { padding: 20px; margin-bottom: 24px; }
+  .index-video-title p { font-size: 14px; }
+  .row { gap: 12px; }
+  .certification-each-item .img-bg { height: 300px; padding: 14px 14px 82px; }
+  .certification-each-item .img-bg p { font-size: 13px; padding: 14px 48px 14px 14px; }
 }
 
 @media (max-width: 480px) {
-  .col-md-4 {
-    flex: 0 0 calc(100% - 20px);
-    max-width: calc(100% - 20px);
-  }
-  .certification-each-item .img-bg { height: 250px; }
-  .certification-each-item .img-bg p { font-size: 0.9rem; }
-  .certification-each-item .img-bg p span { font-size: 0.65rem; }
-  .certification-each-item { padding-bottom: 1em; }
-  .cert-grid { padding: 15px 0 20px; }
-  .img-notice { font-size: 0.75rem; padding: 8px 12px; margin: 15px 0 8px; }
+  .row { grid-template-columns: 1fr; }
+  .certification-each-item .img-bg { height: 380px; }
 }
-.certification-each-item .img-bg {
-  display: block; text-decoration: none; height: 450px; width: 100%;
-  background: no-repeat center top; background-size: contain;
-  position: relative; border: 1px solid rgba(75,87,104,0.4);
-  border-radius: 4px;
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-  background-color: #f8f9fa;
-}
-.certification-each-item .img-bg:hover {
-  transform: scale3d(1.03,1.03,1.03);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-}
-.certification-each-item .img-bg p {
-  position: absolute; bottom: 0; left: 0; right: 0; margin: 0;
-  padding: 10px 5px 6px;
-  background: linear-gradient(transparent, rgba(30,42,58,0.85));
-  color: #fff; font-size: 1.0rem; font-weight: 500;
-  text-align: center; border-radius: 0 0 4px 4px;
-}
-.certification-each-item .img-bg p span {
-  display: block; font-size: 0.75rem;
-  color: rgba(255,255,255,0.75); font-weight: 400; margin-top: 2px;
-}
-.cert-grid { padding: 30px 0 50px; }
 
 /* ===== 이미지 모달 라이트박스 ===== */
 .modal {
