@@ -12,6 +12,17 @@
 - 이 환경에서 `git push`와 `gh`(morunero211 로그인)가 동작한다. push·PR은 사용자 요청이 있을 때만.
 - 커밋 메시지 형식: `type : 한글 설명` (예: `fix : VAN -> VAV 오타 수정`, `feat : ...`, `refactor : ...`).
 
+## 미리보기 사이트 (리디자인 검토용)
+
+- 주소: **http://www.joysanup.co.kr/joy-preview/** — 별도 공개 저장소 `morunero211/joy-preview`의 GitHub Pages. 계정 대표 사이트에 커스텀 도메인이 있어서 프로젝트 Pages가 그 도메인의 하위 경로로 서빙된다.
+- 로컬 `preview` 브랜치 = 리디자인 브랜치 + 미리보기 전용 커밋 1개(**CNAME 삭제**, 모든 페이지에 `noindex` 메타). 이 브랜치는 원격 `preview`(joy-preview)의 `main`에만 올린다.
+- ⚠️ `preview` 브랜치를 origin에 push하거나 `feature/home`으로 PR하지 말 것 — CNAME 삭제가 실제 사이트 도메인을 끊는다.
+- 갱신 방법 (리디자인 브랜치에 커밋한 뒤):
+  ```bash
+  git switch preview && git rebase test/11.18/site-redesign && git push -f preview preview:main && git switch test/11.18/site-redesign
+  ```
+  push 후 1~2분 뒤 반영된다(`gh api repos/morunero211/joy-preview/pages/builds/latest --jq .status` → `built`).
+
 ## 로컬 확인
 
 스크린샷 확인: `~/.cache/ms-playwright/chromium-1140/chrome-linux/chrome --headless=new --no-sandbox --run-all-compositor-stages-before-draw --virtual-time-budget=10000 --window-size=1440,3000 --screenshot=out.png http://localhost:8000/pages/home.html`. headless는 최소 너비가 약 500px라서 모바일(390px)은 iframe으로 감싸서 캡처한다. 이 WSL에는 한글 시스템 폰트가 없어 일부 글자가 □로 찍힐 수 있다(실제 브라우저에서는 정상).
