@@ -54,7 +54,7 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 
 각 페이지는 `<body>` 끝에서 `<script src="../components/common.js">`를 로드하고, 이 스크립트가 런타임에 DOM을 주입한다. **GNB·푸터·협력업체 섹션은 HTML 파일에 직접 쓰지 말고 common.js만 수정**한다.
 
-- `NAV` — GNB 템플릿 문자열. 드롭다운은 회사소개(4개)와 실적현황(기업별 실적 / 현장 사진) 두 곳이다. 메뉴 추가/변경은 여기서. 링크는 `/pages/xxx.html` 절대경로, 로고는 `../images/joy-log-color.png`(파비콘과 동일, 32×32). `joy-log.png`는 현재 미사용이지만 보관 중. 우측에 전화 CTA 버튼(`.nav-cta`, `tel:` 링크).
+- `NAV` — GNB 템플릿 문자열. 드롭다운은 회사소개(4개)와 실적현황(기업별 실적 / 현장 사진) 두 곳이다. 메뉴 추가/변경은 여기서. 링크는 `/pages/xxx.html` 절대경로, 로고(GNB·푸터)는 `../images/조이산업작은로고.png`(93×58 가로형, 흰 배경 → `mix-blend-mode: multiply`). 파비콘은 별도로 `joy-log-color.png`(32×32). `joy-log.png`는 미사용이지만 보관 중. 우측에 전화 CTA 버튼(`.nav-cta`, `tel:` 링크).
 - `FOOTER` — `<footer class="site-footer">` 4열(브랜드 소개 / 회사소개 링크 / 사업·문의 링크 / 회사 정보: 대표·주소·전화·팩스) + 하단 카피라이트, 그리고 고정 `.go-top` 버튼.
 - `updateScrollState()` — 스크롤 시 `.navbar.scrolled`(테두리·그림자), 480px 이상 내려가면 `.go-top.show`.
 - `PARTNER_LOGOS` — "주요 협력업체 및 거래처" 로고 파일 목록(`images/company_logo/`). **배열 순서 = 화면 표시 순서**. 페이지에 `<div id="partners"></div>`가 있으면 그 자리에 섹션이 삽입된다(현재 home, records).
@@ -143,3 +143,4 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 ## 할 일
 
 - [ ] **무림P&P 공정 개선 사례 실제 문구로 교체** — `pages/project.html`의 "협력 업체 공정 개선 사례" 4번째 카드(`무림P&P`). 현재 4줄은 실적현황(`records-data.json` 무림 공사 내역)을 바탕으로 만든 **임시 문구**이고, "수명 연장"·"효율 개선" 같은 효과 표현은 확인되지 않은 것이다. 실제 개선 사례를 받으면 `<ul class="case-list">` 안의 `<li>`를 교체하고 HTML의 임시 문구 주석을 지운다.
+- [ ] **홈 화면 아이콘 크기 키우기 & 글자 크기 변경** — `pages/home.html` / `pages/home.css`. 대상 아이콘·글자 범위(가치 카드·바로가기 카드의 `.icon-tile`, 본문·제목 등)와 원하는 크기는 작업 시작 전에 사용자에게 확인한다.

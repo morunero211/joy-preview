@@ -13,7 +13,7 @@ var NAV = `
 <nav class="navbar" role="navigation">
   <div class="navbar-container">
     <a class="navbar-brand" href="/">
-      <div class="brand-logo"><img src="../images/joy-log-color.png" alt="조이산업 로고" /></div>
+      <div class="brand-logo"><img src="../images/조이산업작은로고.png" alt="조이산업 로고" /></div>
       <span>조이산업</span>
     </a>
     <button class="navbar-toggler" type="button" onclick="toggleNavbar()" aria-label="Menu">
@@ -68,7 +68,7 @@ var FOOTER = `
     <div class="footer-top">
       <div class="footer-brand">
         <a class="navbar-brand" href="/">
-          <div class="brand-logo"><img src="../images/joy-log-color.png" alt="조이산업 로고" /></div>
+          <div class="brand-logo"><img src="../images/조이산업작은로고.png" alt="조이산업 로고" /></div>
           <span>조이산업</span>
         </a>
         <p>35년 이상의 공조 설비 전문 기업.<br>설계부터 제작, 시공까지 One-Stop 서비스를 제공합니다.</p>

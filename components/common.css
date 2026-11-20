@@ -270,22 +270,17 @@ a:hover { color: var(--accent); }
   flex-shrink: 0;
 }
 
+/* 로고: images/조이산업작은로고.png (93x58 가로형, 흰 배경) */
 .navbar-brand .brand-logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  background: #fff;
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  height: 36px;
 }
 
 .navbar-brand .brand-logo img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
+  height: 34px;
+  width: auto;
+  mix-blend-mode: multiply; /* 흰 배경을 회색 푸터에서도 자연스럽게 */
 }
 
 .navbar-collapse {
