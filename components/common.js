@@ -12,7 +12,7 @@
 var NAV = `
 <nav class="navbar" role="navigation">
   <div class="navbar-container">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="home.html">
       <div class="brand-logo"><img src="../images/조이산업작은로고.png" alt="조이산업 로고" /></div>
       <span>조이산업</span>
     </a>
@@ -27,14 +27,14 @@ var NAV = `
             <i class="fas fa-chevron-down caret"></i>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="/pages/ceo_greeting.html">CEO 인사말</a>
-            <a class="dropdown-item" href="/pages/org_chart.html">조직도</a>
-            <a class="dropdown-item" href="/pages/history.html">연혁</a>
-            <a class="dropdown-item" href="/pages/certification.html">인허가현황</a>
+            <a class="dropdown-item" href="ceo_greeting.html">CEO 인사말</a>
+            <a class="dropdown-item" href="org_chart.html">조직도</a>
+            <a class="dropdown-item" href="history.html">연혁</a>
+            <a class="dropdown-item" href="certification.html">인허가현황</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pages/project.html">사업영역</a>
+          <a class="nav-link" href="project.html">사업영역</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="javascript:void(0);" onclick="toggleDropdown(this)">
@@ -42,15 +42,15 @@ var NAV = `
             <i class="fas fa-chevron-down caret"></i>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="/pages/records.html">기업별 실적</a>
-            <a class="dropdown-item" href="/pages/records_photo.html">현장 사진</a>
+            <a class="dropdown-item" href="records.html">기업별 실적</a>
+            <a class="dropdown-item" href="records_photo.html">현장 사진</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pages/board.html">고객문의</a>
+          <a class="nav-link" href="board.html">고객문의</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pages/contact.html">오시는 길</a>
+          <a class="nav-link" href="contact.html">오시는 길</a>
         </li>
       </ul>
       <a class="btn btn-primary nav-cta" href="tel:052-249-9199">
@@ -67,7 +67,7 @@ var FOOTER = `
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="home.html">
           <div class="brand-logo"><img src="../images/조이산업작은로고.png" alt="조이산업 로고" /></div>
           <span>조이산업</span>
         </a>
@@ -76,20 +76,20 @@ var FOOTER = `
       <div>
         <h4>회사소개</h4>
         <ul class="footer-links">
-          <li><a href="/pages/ceo_greeting.html">CEO 인사말</a></li>
-          <li><a href="/pages/org_chart.html">조직도</a></li>
-          <li><a href="/pages/history.html">연혁</a></li>
-          <li><a href="/pages/certification.html">인허가현황</a></li>
+          <li><a href="ceo_greeting.html">CEO 인사말</a></li>
+          <li><a href="org_chart.html">조직도</a></li>
+          <li><a href="history.html">연혁</a></li>
+          <li><a href="certification.html">인허가현황</a></li>
         </ul>
       </div>
       <div>
         <h4>사업 · 문의</h4>
         <ul class="footer-links">
-          <li><a href="/pages/project.html">사업영역</a></li>
-          <li><a href="/pages/records.html">기업별 실적</a></li>
-          <li><a href="/pages/records_photo.html">현장 사진</a></li>
-          <li><a href="/pages/board.html">고객문의</a></li>
-          <li><a href="/pages/contact.html">오시는 길</a></li>
+          <li><a href="project.html">사업영역</a></li>
+          <li><a href="records.html">기업별 실적</a></li>
+          <li><a href="records_photo.html">현장 사진</a></li>
+          <li><a href="board.html">고객문의</a></li>
+          <li><a href="contact.html">오시는 길</a></li>
         </ul>
       </div>
       <div class="footer-info">
@@ -190,6 +190,8 @@ function toggleDropdown(element) {
 }
 
 // ===== 액티브 메뉴 설정 =====
+// 링크는 모두 pages/ 기준 상대경로라 도메인 루트든 하위 경로(미리보기)든 동작한다.
+// 비교는 브라우저가 해석한 절대 경로(link.pathname)로 한다.
 function setActiveMenu() {
   var currentPath = window.location.pathname;
 
@@ -197,7 +199,7 @@ function setActiveMenu() {
   var links = document.querySelectorAll('.nav-link, .dropdown-item');
   links.forEach(function(link) {
     var href = link.getAttribute('href');
-    if (href && href.indexOf('javascript:') !== 0 && currentPath.endsWith(href)) {
+    if (href && href.indexOf('javascript:') !== 0 && link.pathname === currentPath) {
       link.classList.add('active');
 
       // 드롭다운 항목이면 상위 메뉴도 활성화

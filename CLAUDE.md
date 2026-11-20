@@ -6,9 +6,10 @@
 
 - **`feature/home` 브랜치가 실질적인 메인/배포 브랜치**(GitHub Pages 소스). `main`/`dev`는 배포 기준이 아니다.
 - 작업 흐름: `fix/<날짜>/<주제>` 같은 작업 브랜치 → PR → `feature/home` 병합 (예: PR #5 `fix/10.15/site-update`).
-- 커스텀 도메인 `www.joysanup.co.kr` (`CNAME`). 도메인 **루트에서 서빙**되므로 `/pages/...` 절대경로 링크가 정상 동작한다.
+- 저장소 실제 이름은 `morunero211/morunero211.github.io`(구 Joy-bsns, 계정 대표 Pages 사이트). 커스텀 도메인 `www.joysanup.co.kr` (`CNAME`).
+- 링크는 모두 `pages/` 기준 **상대경로**라 도메인 루트든 하위 경로(미리보기)든 동작한다. **절대경로(`/pages/...`)를 새로 쓰지 말 것.**
 - `CNAME`은 GitHub 웹에서 직접 커밋된 적이 있으니 push 전에 fetch/rebase가 필요할 수 있다.
-- 이 WSL 환경에는 HTTPS 자격증명이 없어 **push는 사용자가 직접** 한다.
+- 이 환경에서 `git push`와 `gh`(morunero211 로그인)가 동작한다. push·PR은 사용자 요청이 있을 때만.
 - 커밋 메시지 형식: `type : 한글 설명` (예: `fix : VAN -> VAV 오타 수정`, `feat : ...`, `refactor : ...`).
 
 ## 로컬 확인
@@ -16,7 +17,7 @@
 스크린샷 확인: `~/.cache/ms-playwright/chromium-1140/chrome-linux/chrome --headless=new --no-sandbox --run-all-compositor-stages-before-draw --virtual-time-budget=10000 --window-size=1440,3000 --screenshot=out.png http://localhost:8000/pages/home.html`. headless는 최소 너비가 약 500px라서 모바일(390px)은 iframe으로 감싸서 캡처한다. 이 WSL에는 한글 시스템 폰트가 없어 일부 글자가 □로 찍힐 수 있다(실제 브라우저에서는 정상).
 
 
-빌드 단계 없음. 단, `records.html`은 `fetch('./records-data.json')`을 쓰므로 `file://`로 열면 데이터가 안 뜬다. 또 GNB 링크가 `/pages/...` 절대경로라 **저장소 루트를 서버 루트로** 띄워야 한다.
+빌드 단계 없음. 단, `records.html`은 `fetch('./records-data.json')`을 쓰므로 `file://`로 열면 데이터가 안 뜬다. 저장소 루트에서 서버를 띄우면 `http://localhost:8000/`으로 확인할 수 있다.
 
 ```bash
 python3 -m http.server 8000   # 저장소 루트에서 실행 → http://localhost:8000/
@@ -54,11 +55,11 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 
 각 페이지는 `<body>` 끝에서 `<script src="../components/common.js">`를 로드하고, 이 스크립트가 런타임에 DOM을 주입한다. **GNB·푸터·협력업체 섹션은 HTML 파일에 직접 쓰지 말고 common.js만 수정**한다.
 
-- `NAV` — GNB 템플릿 문자열. 드롭다운은 회사소개(4개)와 실적현황(기업별 실적 / 현장 사진) 두 곳이다. 메뉴 추가/변경은 여기서. 링크는 `/pages/xxx.html` 절대경로, 로고(GNB·푸터)는 `../images/조이산업작은로고.png`(93×58 가로형, 흰 배경 → `mix-blend-mode: multiply`). 파비콘은 별도로 `joy-log-color.png`(32×32). `joy-log.png`는 미사용이지만 보관 중. 우측에 전화 CTA 버튼(`.nav-cta`, `tel:` 링크).
+- `NAV` — GNB 템플릿 문자열. 드롭다운은 회사소개(4개)와 실적현황(기업별 실적 / 현장 사진) 두 곳이다. 메뉴 추가/변경은 여기서. 링크는 `xxx.html` 상대경로(로고는 `home.html`), 로고(GNB·푸터)는 `../images/조이산업작은로고.png`(93×58 가로형, 흰 배경 → `mix-blend-mode: multiply`). 파비콘은 별도로 `joy-log-color.png`(32×32). `joy-log.png`는 미사용이지만 보관 중. 우측에 전화 CTA 버튼(`.nav-cta`, `tel:` 링크).
 - `FOOTER` — `<footer class="site-footer">` 4열(브랜드 소개 / 회사소개 링크 / 사업·문의 링크 / 회사 정보: 대표·주소·전화·팩스) + 하단 카피라이트, 그리고 고정 `.go-top` 버튼.
 - `updateScrollState()` — 스크롤 시 `.navbar.scrolled`(테두리·그림자), 480px 이상 내려가면 `.go-top.show`.
 - `PARTNER_LOGOS` — "주요 협력업체 및 거래처" 로고 파일 목록(`images/company_logo/`). **배열 순서 = 화면 표시 순서**. 페이지에 `<div id="partners"></div>`가 있으면 그 자리에 섹션이 삽입된다(현재 home, records).
-- `setActiveMenu()` — `location.pathname.endsWith(href)`로 현재 메뉴에 `.active`, 드롭다운 항목이면 상위 "회사소개"도 활성화.
+- `setActiveMenu()` — 브라우저가 해석한 `link.pathname`과 `location.pathname`이 같으면 `.active`, 드롭다운 항목이면 상위 메뉴(회사소개/실적현황)도 활성화.
 - 모바일: `toggleNavbar()`(`.navbar-collapse.open`), `toggleDropdown()`(`.nav-item.open`). 햄버거 메뉴 전환 브레이크포인트는 **1200px** (`common.css` 하단 "반응형 디자인").
 - `initScrollAnimation()` — IntersectionObserver로 `.fade-up` 요소에 `.animate` 추가. `.fade-up`(opacity 0 → 1 transition) 스타일은 `common.css`에 있어 어느 페이지에서든 클래스만 붙이면 동작한다.
 - ⚠️ 템플릿 문자열(`` ` ``)을 수정한 뒤에는 `node --check components/common.js`로 문법을 확인할 것. 깨지면 GNB·푸터가 통째로 사라진다.
@@ -134,7 +135,7 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 - `.page-hero-bg-text`는 영문 eyebrow 라벨로, `h1`은 큰 제목으로 표시된다. GNB가 fixed라서 히어로가 상단 여백(`--navbar-height`)을 갖고 있으니, 히어로 없이 시작하는 페이지를 만들 때는 상단 여백을 직접 준다.
 - 레이아웃 래퍼 `.container`(max 1180px, `--container`).
 - 반응형 브레이크포인트: 1200 / 1024 / 768 / 480px.
-- 페이지 내부 링크(home의 버튼 등)는 상대경로(`records.html`), GNB는 절대경로 — 둘 다 정상.
+- 페이지 내부 링크·GNB·푸터 모두 상대경로(`records.html`).
 
 ## 알려진 잔재 · 주의점
 
@@ -143,4 +144,3 @@ images/                 → 로고, 조직도, 대표 서명, certification/, co
 ## 할 일
 
 - [ ] **무림P&P 공정 개선 사례 실제 문구로 교체** — `pages/project.html`의 "협력 업체 공정 개선 사례" 4번째 카드(`무림P&P`). 현재 4줄은 실적현황(`records-data.json` 무림 공사 내역)을 바탕으로 만든 **임시 문구**이고, "수명 연장"·"효율 개선" 같은 효과 표현은 확인되지 않은 것이다. 실제 개선 사례를 받으면 `<ul class="case-list">` 안의 `<li>`를 교체하고 HTML의 임시 문구 주석을 지운다.
-- [ ] **홈 화면 아이콘 크기 키우기 & 글자 크기 변경** — `pages/home.html` / `pages/home.css`. 대상 아이콘·글자 범위(가치 카드·바로가기 카드의 `.icon-tile`, 본문·제목 등)와 원하는 크기는 작업 시작 전에 사용자에게 확인한다.
